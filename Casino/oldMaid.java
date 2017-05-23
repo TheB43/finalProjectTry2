@@ -1,20 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 import java.util.Scanner;
-
-/**
- * Write a description of class oldMaid here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class oldMaid extends World
 {
-
-    /**
-     * Constructor for objects of class oldMaid.
-     * 
-     */
     public oldMaid()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
