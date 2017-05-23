@@ -21,25 +21,20 @@ public class Card extends Actor
     public Card(String suit, String rank) {
         this.suit = suit;
         this.rank = rank;
-        pointRank = getPointRank(rank);
         cardImage = new GreenfootImage(rank + suit + ".png");
-        cardbackground = new GreenfootImage("Casino_CardBackground.png");
-        changeImage(cardBackground);
+        cardBackground = new GreenfootImage("Casino_CardBackground.png");
+        setImage(cardBackground);
     }
     public Card(String suit, String rank, boolean visible) {
         this.suit = suit;
         this.rank = rank;
         this.visible = visible;
-        pointValue = getPointRank(rank);
         cardImage = new GreenfootImage(rank + suit + ".png");
-        cardbackground = new GreenfootImage("Casino_CardBackground.png");
+        cardBackground = new GreenfootImage("Casino_CardBackground.png");
         if (visible) {
-            changeImage(cardImage);
+            setImage(cardImage);
         } else {
-            changeImage(cardBackground);
+            setImage(cardBackground);
         }
     } 
-    public int getPointRank() {
-        return pointRank;
-    }
 }
