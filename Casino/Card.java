@@ -25,7 +25,7 @@ public class Card extends Actor
         this.visible = visible;
         pointValue = getPointRank(rank);
         cardImage = new GreenfootImage(rank + suit + ".png");
-        cardbackground = new GreenfootImage(/*insert backgroundcard .png*/);
+        cardbackground = new GreenfootImage("Casino_CardBackground.png");
         if (visible) {
             changeImage(cardImage);
         } else {
