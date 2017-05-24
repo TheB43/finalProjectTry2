@@ -3,7 +3,7 @@ import java.io.*;
 
 public class War extends World
 {   
-    /Deck warDeck = mainDeck; //rank, suit, front or back
+    //Deck warDeck = mainDeck; //rank, suit, front or back
     public War()
     {    
         super(900, 550, 1);
