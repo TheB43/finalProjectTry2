@@ -1,30 +1,19 @@
-/**
- * Write a description of class Deck here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class Deck  
+import greenfoot.*;
+import java.util.ArrayList; 
+public class Deck 
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Deck
-     */
-    public Deck()
-    {
-    }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    String[] Rank = new String[]{"Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King"};
+    String[] Suit = new String[]{"Heart","Spade","Club","Diamond"};
+    
+    public ArrayList<Card> Deck;
+    public Deck() {
+        int index = 0; 
+        for (String s: Suit){
+            for (String r: Rank){
+               Deck.add(new Card(s,r));
+               Deck.get(index).setRankValue(index);
+               index++;
+            }
+        }
     }
 }

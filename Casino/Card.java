@@ -1,21 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.awt.Point;
 import java.util.List;
-
-/**
- * Write a description of class Card here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Card extends Actor
 {
     private String rank;
     private String suit;
-    
-    private int pointRank;
-    private int player;
-    private boolean visible;
+    private int rankValue;
+    private boolean isTurnedUp = false;
     GreenfootImage cardImage;
     GreenfootImage cardBackground;
     public Card(String suit, String rank) {
@@ -25,16 +16,18 @@ public class Card extends Actor
         cardBackground = new GreenfootImage("Casino_CardBackground.png");
         setImage(cardBackground);
     }
-    public Card(String suit, String rank, boolean visible) {
-        this.suit = suit;
-        this.rank = rank;
-        this.visible = visible;
-        cardImage = new GreenfootImage(rank + suit + ".png");
-        cardBackground = new GreenfootImage("Casino_CardBackground.png");
-        if (visible) {
+    public void setCardImage(boolean isTurnedUp) {
+        this.isTurnedUp = isTurnedUp;
+        if (this.isTurnedUp) {
             setImage(cardImage);
         } else {
             setImage(cardBackground);
         }
     } 
+    public void setRankValue(int rank) {
+        rankValue = rank % 13 + 1;
+    }
+    public int getRankValue() {
+        return rankValue;
+    }
 }
