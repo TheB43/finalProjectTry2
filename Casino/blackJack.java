@@ -4,9 +4,9 @@ public class blackJack extends World
     public blackJack()
     {    
         super(900, 550, 1); 
+        addObject(mainMenu.scoreKeeper, 60, 20);
     }
-    public void startBJ() {
-        getBackground().drawImage(new GreenfootImage("Casino-playtable.png"), 0, 0);
-        Greenfoot.start();
+    public void startBJ(){
+        
     }
 }
