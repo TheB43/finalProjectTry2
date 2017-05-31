@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=suit\ rank
+comment0.target=Card(java.lang.String,\ java.lang.String)
+comment1.params=isTurnedUp
+comment1.target=void\ setCardImage(boolean)
+comment2.params=rank
+comment2.target=void\ setRankValue(int)
+comment3.params=
+comment3.target=int\ getRankValue()
+numComments=4
