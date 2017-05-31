@@ -14,7 +14,13 @@ public class oldMaid extends World {
         // Create a new world with 900x550 cells with a cell size of 1x1 pixels.
         super(900, 550, 1);
         setBackground("Casino-playtable.png");
+        addObject(mainMenu.scoreKeeper, 60, 20);
+        mainMenu.scoreKeeper.modifyCash(getBet());
+    }
     
+    public void startOM() {
+        getBackground().drawImage(new GreenfootImage("Casino-playtable.png"), 0, 0);
+        Greenfoot.start();
         //Determine whether the user wants to play again upon completion of the game.
         boolean playAgain = true;
         
@@ -115,8 +121,8 @@ public class oldMaid extends World {
             }
             
             //Add/Subtract the bet amounts from the winner and loser
-            dealerBalance = changeToBalance(dealerBalance, dealerBet, dealerWin);
-            userBalance = changeToBalance(userBalance, userBet, userWin);
+            dealerBet = bet(dealerBet, dealerWin);
+            userBet = bet(userBet, userWin);
             
             GreenfootImage again = new GreenfootImage("Play again?\nYes\tNo", 18, Color.WHITE, Color.BLACK); //<- At some point this will be changed to a simple mouse click
             int userResponse = click("play again");
@@ -178,9 +184,9 @@ public class oldMaid extends World {
         
             if(Greenfoot.mouseClicked(null)) {
                 if(situation.equals("cards")) { //This code is for choosing cards
-                    if (y > 456 && y < 550) {
-                        if(x > (600 / 23) - 74 && x < 600 / 23) {
-                                returnNum = 900 / 23;
+                    if (y > 456 && y < 550) { //The scenario here is the cards are displayed at the top of the screen
+                        if(x > (600 / 23) - 74 && x < 600 / 23) { // Screen is not long enough to accomodate an entire hand,
+                                returnNum = 900 / 23;             // so cards will overlap, but each is given equal space to be clicked
                         }
                     }
                 }
@@ -203,8 +209,8 @@ public class oldMaid extends World {
                         }
                         returnNum = bet;
                     } else if (y < 233 && y > 217) {
-                        if(x < 340 && x > 260) {
-                            returnNum = -100; //<-This triggers the code above to stop prompting user to place a bet
+                        if(x < 340 && x > 260) { // Just making the spot in the center of the screen. Move the image "Place" accordingly.
+                            returnNum = -100; //<-This triggers the code above to stop prompting user to place a bet.
                         }
                     }
                 }
@@ -213,18 +219,14 @@ public class oldMaid extends World {
         return returnNum;
     }
     
-    public int changeToBalance(int initialAmount, int betAmount, boolean win) {
+    public int bet(int betAmount, boolean win) {
         if(win == true) {
-            return initialAmount + betAmount;
+            return betAmount;
         } else if (win == false) {
-            return initialAmount - betAmount;
-        } else {
-            return initialAmount;
+            return -betAmount;
         }
     }
-    
-    public void startOM() {
-        getBackground().drawImage(new GreenfootImage("Casino-playtable.png"), 0, 0);
-        Greenfoot.start();
-    } 
+    public int getBet() {
+        return userBet;
+    }    
 }
