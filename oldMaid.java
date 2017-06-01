@@ -14,13 +14,16 @@ public class oldMaid extends World {
         // Create a new world with 900x550 cells with a cell size of 1x1 pixels.
         super(900, 550, 1);
         setBackground("Casino-playtable.png");
-        addObject(mainMenu.scoreKeeper, 60, 20);
-        mainMenu.scoreKeeper.modifyCash(getBet());
+        addObject(mainMenu.scoreKeeper, 60, 20); //Add user balance to upper-left corner
+        mainMenu.scoreKeeper.dealerCash = 400; //In this game the delaer starts with $400
     }
     
+    //Instantiate original deck
+    ArrayList<Card> omDeck = Deck.getDeck(); 
     public void startOM() {
         getBackground().drawImage(new GreenfootImage("Casino-playtable.png"), 0, 0);
         Greenfoot.start();
+        
         //Determine whether the user wants to play again upon completion of the game.
         boolean playAgain = true;
         
@@ -33,56 +36,45 @@ public class oldMaid extends World {
                         + "\nPlace your bet (Minimum of $50): ", 12, Color.WHITE, Color.BLACK);
             
             //Place bet
-            boolean bet = false;
-            int userBet = 50;
-            while(bet == false && userBet < 50 ) { //Allows user to constantly update bet until they hit "BET" setting their amount
+            boolean betAgain = true; //Used with for-loop to continually prompt user to change their bet until they click a box in the middle of the screen
+            int userBet = 50; //The minimum bet is $50
+            while(betAgain == true || userBet < 50 ) { //Allows user to constantly update bet until they hit "BET" setting their amount
                 int userAdd = click("bet");
-                if(userAdd == -100) { //-100 is just some arbitrary number that cannot be reachde by any other means
-                    bet = true;
+                if(userAdd == 0) { //0 is just some arbitrary number that cannot be reachde by any other means
+                    betAgain = false;
                 }
                 userBet += userAdd;
-                GreenfootImage showBet = new GreenfootImage(userBet + "\nPlace", 12, Color.WHITE, Color.BLACK);
+                GreenfootImage showBet = new GreenfootImage(userBet + "\nPlace", 12, Color.WHITE, Color.BLACK); //Continually update text with user bet amount
             }
-            int dealerBet = userBet;
+            int dealerBet = userBet; //Dealer must match user's bet
+                        
+            //Select one random card from the omDeck and remove it.
+            int randomIndex = (int)(Math.random() * 52);
+            omDeck.remove(randomIndex);
             
-            //Instantiate one full deck
-            ArrayList<Card> deck = new ArrayList<Card>(52);
-            Deck OGdeck = new Deck();
-            for(int i = 0; i < deck.size(); i++) {
-                deck.add(OGdeck.getDeck().get(i)); //<-This is fucky but it basically transfers the cards to a more workable ArrayList
-            } //I also added a method getDeck() to the Deck class to make it easier to fit within this code.
-            
-            //Select one random card from the deck and remove it.
-            int randomIndex = (int)Math.random() * 52; //Now the deck is more malleable because it's an ArrayList
-            deck.remove(randomIndex);
-            
-            //Sort the remaining deck into two hands, one for the player, one for the house.
+            //Sort the remaining omDeck into two hands, one for the player, one for the house.
             ArrayList<Card> playerHand = new ArrayList<Card>();
             ArrayList<Card> dealerHand = new ArrayList<Card>();
         
             //Fill Player's hand
-            int index = deck.size() - 1;
-            while(index > 0) {
-                int randomCard = (int)Math.random() * 51;
-                playerHand.add(deck.get(randomCard));
-                deck.remove(randomCard);
-                index--;
+            for(int index = 0; index < omDeck.size() / 2; index++) {
+                int randomCard = (int)(Math.random() * omDeck.size());
+                playerHand.add(omDeck.get(randomCard));
+                omDeck.remove(randomCard);
             }
             
             //Fill Dealer's hand
-            int index2 = deck.size() - 1;
-            while(index2 > 0) {
-                int randomCard = (int)Math.random() * 51;
-                playerHand.add(deck.get(randomCard));
-                deck.remove(randomCard);
-                index2--;
+            for(int index2 = 0; index2 < omDeck.size(); index2++) {
+                int randomCard = (int)(Math.random() * omDeck.size());
+                dealerHand.add(omDeck.get(randomCard));
+                omDeck.remove(randomCard);
             }
         
             //Commence the playing
             checkForPair(playerHand);
             checkForPair(dealerHand);
             
-            while(playerHand.size() != 0 && dealerHand.size() != 0) {
+            while(true) { //New edit, this is changed to use a break to exit the while loop.
                 //Prompt user to choose one of the dealer's cards
                 GreenfootImage pickCard = new GreenfootImage("Pick a card, any card...", 12, Color.RED, Color.WHITE);
             
@@ -96,20 +88,24 @@ public class oldMaid extends World {
                 checkForPair(playerHand);
                 
                 //Time for the dealer...
-                int dealerChoice = (int)Math.random() * playerHand.size();
+                int dealerChoice = (int)(Math.random() * playerHand.size());
                 
                 //Add the dealer's chosen card
                 dealerHand.add(playerHand.get(dealerChoice));
                 playerHand.remove(dealerChoice);
                 
                 checkForPair(dealerHand);
+                
+                if(playerHand.size() == 0 || dealerHand.size() == 0) {
+                    break;
+                }
             }
             
             //Determine the winner
             boolean userWin; //Is true when the player wins
             boolean dealerWin; //Is true when the dealer wins
         
-            if(dealerHand.size() == 1) {
+            if(dealerHand.size() == 1) { //The player with the single "Old Maid" when the game ends loses.
                 userWin = true;
                 dealerWin = false;
             } else if (playerHand.size() == 1) {
@@ -124,14 +120,17 @@ public class oldMaid extends World {
             dealerBet = bet(dealerBet, dealerWin);
             userBet = bet(userBet, userWin);
             
+            mainMenu.scoreKeeper.Startcash += userBet;
+            mainMenu.scoreKeeper.dealerCash += dealerBet;
+            
             GreenfootImage again = new GreenfootImage("Play again?\nYes\tNo", 18, Color.WHITE, Color.BLACK); //<- At some point this will be changed to a simple mouse click
-            int userResponse = click("play again");
+            int userResponse = click("play again"); //Refer to the click method
         
             if(userResponse == 1) {
-                playAgain = true;
+                playAgain = true; //When true the game begins anew
             } else if (userResponse == 2) {
-                playAgain = false;
-            } else {
+                playAgain = false; //When false game is not played again
+            } else { //If something unforseen were to happen
                 playAgain = false;
             }
         }//Exits the game
@@ -157,7 +156,7 @@ public class oldMaid extends World {
         sort(hand);
         int i = hand.size() - 2; //Variable in front
         int j = hand.size() - 1; //Variable behind
-        while (i >= 0) {
+        while (i >= 0) { //Traversing the ArrayList backwards to avoid problems with removals
             if(hand.get(i).getRankValue() == hand.get(j).getRankValue()) { // <-Compare Values here
                 if(hand.get(i).equals("Clubs") && hand.get(j).equals("Spades") || 
                    hand.get(i).equals("Spades") && hand.get(j).equals("Clubs") || 
@@ -198,19 +197,19 @@ public class oldMaid extends World {
                     }
                 }
                 if(situation.equals("bet")) { //This code is for placing a bet.
-                    if(y > 233 && y < 550 || y < 217 && y > 0) {
-                        if(x > 340 && x < 600 || x < 260 && x > 0) {
-                            if(mouse.getButton() == 1) {
+                    if(y > 233 && y < 550 || y < 217 && y > 0) { //Anywhere outside of the "Enter" box in the middle of the screen
+                        if(x > 340 && x < 600 || x < 260 && x > 0) { 
+                            if(mouse.getButton() == 1) { //A left-click increses the bet by 10
                                 bet += 10;
                             }
-                            if(mouse.getButton() == 3) {
+                            if(mouse.getButton() == 3) { //A right-click decreses the bet by 10
                                 bet += -10;
                             }
                         }
                         returnNum = bet;
-                    } else if (y < 233 && y > 217) {
+                    } else if (y < 233 && y > 217) { //Finalizes the bet when the "Enter" box in the middle of the screen is clicked
                         if(x < 340 && x > 260) { // Just making the spot in the center of the screen. Move the image "Place" accordingly.
-                            returnNum = -100; //<-This triggers the code above to stop prompting user to place a bet.
+                            returnNum = 0; //<-This triggers the code above to stop prompting user to place a bet.
                         }
                     }
                 }
@@ -219,14 +218,11 @@ public class oldMaid extends World {
         return returnNum;
     }
     
-    public int bet(int betAmount, boolean win) {
-        if(win == true) {
-            return betAmount;
-        } else if (win == false) {
-            return -betAmount;
+    public int bet(int betAmount, boolean win) { //Turns bet into a negative if player (dealer or user) loses.
+        int outcome = betAmount;
+        if(win == false) {
+            outcome = -outcome;
         }
+        return outcome;
     }
-    public int getBet() {
-        return userBet;
-    }    
 }
