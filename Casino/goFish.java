@@ -12,6 +12,7 @@ public class goFish extends World
         addObject(mainMenu.scoreKeeper, 60, 20);
         mainMenu.scoreKeeper.modifyCash(getBet());
     }
+    ArrayList<Card> deck = Deck.getDeck();
     public void startGF() {
         getBackground().drawImage(new GreenfootImage("Casino-playtable.png"), 0, 0);
         Greenfoot.start();
@@ -28,7 +29,7 @@ public class goFish extends World
             //Place bet
             boolean bet = false;
             int userBet = 50;
-            while(bet == false && userBet < 50 ) { //Allows user to constantly update bet until they hit "BET" setting their amount
+            while(bet == false && userBet <= 50 ) { //Allows user to constantly update bet until they hit "BET" setting their amount
                 int userAdd = click("bet");
                 if(userAdd == -100) { //-100 is just some arbitrary number that cannot be reachde by any other means
                     bet = true;
