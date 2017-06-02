@@ -55,16 +55,18 @@ public class oldMaid extends World {
             //Sort the remaining omDeck into two hands, one for the player, one for the house.
             ArrayList<Card> playerHand = new ArrayList<Card>();
             ArrayList<Card> dealerHand = new ArrayList<Card>();
+            
+            final int OGDECKSIZE = omDeck.size(); //Since the deck is being manipulated regarding its length, there needs to be a concrete size
         
             //Fill Player's hand
-            for(int index = 0; index < omDeck.size() / 2; index++) {
+            for(int index = 0; index < (OGDECKSIZE / 2) + 1; index++) {
                 int randomCard = (int)(Math.random() * omDeck.size());
                 playerHand.add(omDeck.get(randomCard));
                 omDeck.remove(randomCard);
             }
             
             //Fill Dealer's hand
-            for(int index2 = 0; index2 < omDeck.size(); index2++) {
+            for(int index2 = 0; index2 < OGDECKSIZE / 2; index2++) {
                 int randomCard = (int)(Math.random() * omDeck.size());
                 dealerHand.add(omDeck.get(randomCard));
                 omDeck.remove(randomCard);
