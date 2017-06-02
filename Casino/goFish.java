@@ -12,7 +12,8 @@ public class goFish extends World
         addObject(mainMenu.scoreKeeper, 60, 20);
         mainMenu.scoreKeeper.modifyCash(getBet());
     }
-    ArrayList<Card> deck = Deck.getDeck();
+    ArrayList<Card> deck = new ArrayList<Card>();
+    Deck deckHolder = new Deck();
     public void startGF() {
         getBackground().drawImage(new GreenfootImage("Casino-playtable.png"), 0, 0);
         Greenfoot.start();
@@ -23,15 +24,14 @@ public class goFish extends World
         int dealerBalance = 500;
         
         while (playAgain == true) {
-             GreenfootImage balanceInfo = new GreenfootImage("Your Balance is: " + userBalance 
+            GreenfootImage balanceInfo = new GreenfootImage("Your Balance is: " + userBalance 
                         + "\nPlace your bet (Minimum of $50): ", 12, Color.WHITE, Color.BLACK);
-            
             //Place bet
             boolean bet = false;
             int userBet = 50;
             while(bet == false && userBet <= 50 ) { //Allows user to constantly update bet until they hit "BET" setting their amount
                 int userAdd = click("bet");
-                if(userAdd == -100) { //-100 is just some arbitrary number that cannot be reachde by any other means
+                if(userAdd == -100) { //-100 is just some arbitrary number that cannot be reached by any other means
                     bet = true;
                 }
                 userBet += userAdd;
@@ -39,14 +39,11 @@ public class goFish extends World
             }
             int dealerBet = userBet;
             
-            ArrayList<Card> deck = new ArrayList<Card>(52);
-            Deck OGdeck = new Deck();
-            for(int i = 0; i < deck.size(); i++) {
-                deck.add(OGdeck.getDeck().get(i)); //<-This is fucky but it basically transfers the cards to a more workable ArrayList
-            } //I also added a method getDeck() to the Deck class to make it easier to fit within this code.
-            
+            ArrayList<Card> deck = new ArrayList<Card>();
+            deck = Deck.getDeck();
             //Select one random card from the deck and remove it.
             int randomIndex = (int)Math.random() * 52; //Now the deck is more malleable because it's an ArrayList
+            Deck OGdeck = new Deck();
             deck.remove(randomIndex);
             
             //Sort the remaining deck into two hands, one for the player, one for the house.
