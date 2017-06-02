@@ -23,10 +23,7 @@ mainMenu.scoreKeeper.dealerCash = 200; //In this game the delaer starts with $40
     public void startWar() {
         getBackground().drawImage(new GreenfootImage("Casino-playtable.png"), 0, 0);
         Greenfoot.start();
-        
-        
-        
-        //bet____________________________________
+
         
         
          public static void main(String[] args) {
@@ -34,7 +31,7 @@ mainMenu.scoreKeeper.dealerCash = 200; //In this game the delaer starts with $40
      
             Random card = new Random();
             Scanner reader = new Scanner(System.in);
-     
+     //implement arraylists for deck, user, dealer
             ArrayList<String> deck = new ArrayList<String>();
             ArrayList<String> user = new ArrayList<String>();
             ArrayList<String> dealer = new ArrayList<String>();
@@ -44,14 +41,14 @@ mainMenu.scoreKeeper.dealerCash = 200; //In this game the delaer starts with $40
             ArrayList<Integer> numbers = new ArrayList<Integer>();   
             Random randomGenerator = new Random();
             while (numbers.size() < 52) {
-     
+     //random draws cards for dealer & user
                 int random = randomGenerator .nextInt(52);
                 if (!numbers.contains(random)) {
                     numbers.add(random);
                 }
             }
      
-            //deck of cards in arraylist, don't know if referenced
+            //deck of cards in arraylist
             deck.add("AceOfHearts");
             deck.add("AceOfClubs");
             deck.add("AceOfSpades");
@@ -135,14 +132,14 @@ mainMenu.scoreKeeper.dealerCash = 200; //In this game the delaer starts with $40
                 System.out.println("User has " + user.size() + " cards.");
                 System.out.println("Dealer has " + dealer.size() + " cards.");
                 System.out.println("");
-     
+     //1, 2, 3 based on  the random card draw who has the bigger card. 
                 System.out.println("If user card is greater than dealer card enter 1.");
                 System.out.println("If dealer card is greater than dealer card enter 2.");
                 System.out.println("If it's a tie enter 3.");
-     
+     // displays winner of that round based on the number inputted from above.
                 System.out.print("WINNER: ");
                 int winner = reader.nextInt();
-     
+    // removes cards so that there is overall winner/loser
                 if(winner == 1){
                     user.add(cardtwo);
                     dealer.remove(d);
@@ -154,7 +151,7 @@ mainMenu.scoreKeeper.dealerCash = 200; //In this game the delaer starts with $40
                 }
      
             }
-     
+     //win/lose statements
         if(user.size() == 0){
                 System.out.println("You lost, better luck next time! -$100 of user cash");
                     }
