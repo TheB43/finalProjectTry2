@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=
+comment0.target=java.lang.String\ userCash()
+comment1.params=
+comment1.target=scoreCounter()
+comment2.params=modNum
+comment2.target=void\ modifyCash(int)
+numComments=3

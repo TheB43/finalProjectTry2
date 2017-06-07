@@ -1,12 +1,13 @@
-import greenfoot.*;
+import greenfoot.*;  
 public class mainMenu extends World
 {
+    static scoreCounter scoreKeeper = new scoreCounter();
     public mainMenu()
-    {    
-        super(900, 550, 1); 
-    }   
+    {
+        super(900, 550, 1);
+    }
     public void startMenu() {
-        getBackground().drawImage(new GreenfootImage("Main Menu.png"), 0, 0);
+        addObject(scoreKeeper, 60, 20);// issue
         Greenfoot.start();
     }
     public void act() {
