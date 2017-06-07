@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=oldMaid()
+comment1.params=
+comment1.target=void\ startOM()
+comment2.params=hand
+comment2.target=java.util.ArrayList\ sort(java.util.ArrayList)
+comment3.params=hand
+comment3.target=void\ checkForPair(java.util.ArrayList)
+comment4.params=situation
+comment4.target=int\ click(java.lang.String)
+comment5.params=betAmount\ win
+comment5.target=int\ bet(int,\ boolean)
+numComments=6
