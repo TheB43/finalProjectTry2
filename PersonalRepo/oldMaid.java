@@ -9,13 +9,10 @@ import java.awt.Color;
  * @version 25May17
  */
 public class oldMaid extends World {
-    
     public oldMaid() {    
         // Create a new world with 900x550 cells with a cell size of 1x1 pixels.
         super(900, 550, 1);
-        setBackground("Casino-playtable.png");
         addObject(mainMenu.scoreKeeper, 60, 20);
-        mainMenu.scoreKeeper.dealerCash = 400;
     }
     ArrayList<Card> omDeck = new ArrayList<Card>(); //creating an arraylist of cards
     Deck deckHolder = new Deck(); //creating a deck by which to fill the cards
@@ -36,9 +33,9 @@ public class oldMaid extends World {
             //Place bet
             boolean bet = false;
             int userBet = 50;
-            while(bet == false || userBet < 50 ) { //Allows user to constantly update bet until they hit "BET" setting their amount
+            while(bet == false && userBet <= 50 ) { //Allows user to constantly update bet until they hit "BET" setting their amount
                 int userAdd = click("bet");
-                if(userAdd == 0) { //-100 is just some arbitrary number that cannot be reachde by any other means
+                if(userAdd == 0) { //0 is just some arbitrary number that cannot be reachde by any other means
                     bet = true;
                 }
                 userBet += userAdd;

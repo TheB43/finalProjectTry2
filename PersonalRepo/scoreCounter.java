@@ -8,7 +8,7 @@ public class scoreCounter extends Actor
         return "$" + Startcash;
     }
     public scoreCounter(){ //creates a score counter
-        setImage(new GreenfootImage( "Score: " + userCash(), 25, Color.YELLOW, Color.BLACK));
+        setImage(new GreenfootImage( "Score: " + userCash(), 25, Color.WHITE, Color.BLACK));
     }
     public void modifyCash(int modNum) {//adds cash to the user. if the user loses input negative number
         Startcash += modNum;

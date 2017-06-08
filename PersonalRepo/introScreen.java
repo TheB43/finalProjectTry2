@@ -1,13 +1,14 @@
 import greenfoot.*;
 public class introScreen extends World
 {
+    MouseInfo mouse = Greenfoot.getMouseInfo();
     public introScreen()
     {    
         super(900, 550, 1); //constructs the world
         Greenfoot.start();
     }
     public void act() {
-        MouseInfo mouse = Greenfoot.getMouseInfo(); //initiates mouse object
+         //initiates mouse object
         if(Greenfoot.mouseClicked(null)) { //checks whether or not mouse is clicked
             mainMenu MAIN = new mainMenu(); //creates a main menu object
             Greenfoot.setWorld(MAIN); //sets the background to main menu
