@@ -78,7 +78,7 @@ public class oldMaid extends World {
             
             while(true) { //New edit, this is changed to use a break to exit the while loop.
                 //Prompt user to choose one of the dealer's cards
-                GreenfootImage pickCard = new GreenfootImage("Pick a card, any card...", 12, Color.RED, Color.WHITE);
+                setImage(new GreenfootImage("Pick a card, any card...", 12, Color.RED, Color.WHITE));
             
                 //User chooses card through mouse click:
                 int userChoice = click("cards"); //Refer to the "click" method
@@ -88,6 +88,10 @@ public class oldMaid extends World {
                 dealerHand.remove(userChoice);
                 
                 checkForPair(playerHand);
+                
+                if(playerHand.size() == 0 || dealerHand.size() == 0) { //When one player runs out of cards, the game ends
+                    break; //End game
+                }
                 
                 //Time for the dealer...
                 int dealerChoice = (int)(Math.random() * playerHand.size());
@@ -107,10 +111,10 @@ public class oldMaid extends World {
             boolean userWin; //Is true when the player wins
             boolean dealerWin; //Is true when the dealer wins
         
-            if(dealerHand.size() == 1) { //The player with the single, unmatched card, the "Old Maid", when the game ends loses.
+            if(dealerHand.size() > 0) { //The player with the single, unmatched card, the "Old Maid", when the game ends loses.
                 userWin = true;
                 dealerWin = false;
-            } else if (playerHand.size() == 1) {
+            } else if (playerHand.size() > 0) {
                 userWin = false;
                 dealerWin = true;
             }   else  { //If something unforseen goes on, in which case they both win.
@@ -155,17 +159,14 @@ public class oldMaid extends World {
     
     public static void checkForPair(ArrayList<Card> hand) {
         sort(hand);
-        int i = hand.size() - 2; //Variable in front
-        int j = hand.size() - 1; //Variable behind
-        while (i >= 0) { //Traversing the ArrayList backwards to avoid problems with removals
-            if(hand.get(i).getRankValue() == hand.get(j).getRankValue()) { // <-Compare Values here if they match...
-                if(hand.get(i).getSuit().equals("Club") && hand.get(j).getSuit().equals("Spade") || 
-                   hand.get(i).getSuit().equals("Spade") && hand.get(j).getSuit().equals("Club") || 
-                   hand.get(i).getSuit().equals("Heart") && hand.get(j).equals("Diamond") || 
-                   hand.get(i).getSuit().equals("Diamond") && hand.get(j).getSuit().equals("Heart")) { // <-...then we compare Suits here if they match...
-                    hand.remove(i); //...then we remove both hands from the player's hand, like in Old Maid
-                    hand.remove(i);
-                }
+        int i = hand.size() - 2; //'i' is in front
+        int j = hand.size() - 1; //'j' is behind
+        while (i >= 0) {
+            if(hand.get(i).getRankValue() == hand.get(j).getRankValue()) { // <- Compare both cards values
+                hand.remove(i);
+                hand.remove(i);
+                j--;
+                i--;
             }
             j--;
             i--;
