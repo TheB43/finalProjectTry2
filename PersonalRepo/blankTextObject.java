@@ -8,7 +8,11 @@ public class blankTextObject extends Actor
         setImage(new GreenfootImage(newText, 25, Color.WHITE, Color.BLACK));
     }
     public void act(){
-        if(Greenfoot.mouseClicked(this)) clicked = true;
+        if(!Greenfoot.mouseClicked(null)){
+            if(Greenfoot.mouseClicked(this)){
+                clicked = true;
+            }
+        }
     }
     public boolean gotClicked()
     {

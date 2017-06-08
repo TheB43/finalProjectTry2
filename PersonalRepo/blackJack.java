@@ -20,6 +20,7 @@ public class blackJack extends World //just a placeholder until time is availabl
     }
     public void startBJ(){//begins blackjack
         boolean playAgain = true;
+        Greenfoot.start();
         this.bet();
     }
     
