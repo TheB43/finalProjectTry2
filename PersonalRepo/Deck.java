@@ -15,4 +15,11 @@ public class Deck
             }
         }
     }
+    public Card deal(ArrayList<Card> deck)
+    {
+        int randCard = Greenfoot.getRandomNumber(deck.size());
+        Card c = deck.get(randCard);
+        deck.remove(randCard);
+        return c;
+    }
 }

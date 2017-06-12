@@ -7,4 +7,6 @@ comment2.params=rank
 comment2.target=void\ setRankValue(int)
 comment3.params=
 comment3.target=int\ getRankValue()
-numComments=4
+comment4.params=
+comment4.target=void\ act()
+numComments=5

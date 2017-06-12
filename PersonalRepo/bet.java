@@ -3,6 +3,7 @@ public class bet extends Actor
 {
     static int bet = 0;
     int userCash = mainMenu.scoreKeeper.Startcash;
+    blankTextObject betInstructions = new blankTextObject();
     blankTextObject betSetter = new  blankTextObject();
     blankTextObject addBet = new  blankTextObject();
     blankTextObject subBet = new  blankTextObject();
@@ -13,6 +14,8 @@ public class bet extends Actor
         addBet.setNewText("Add by 5");
         subBet.setNewText("Subtract 5");
         stopBet.setNewText("Stop Betting");
+        finalBet.setNewText("Bet: tbd");
+        betInstructions.setNewText("Your Balance is: " + userCash + "\nPress up to increse by five, press down to decrease by five. Press enter to finalize bet (min of 50)");
     }
     public void act() 
     {
@@ -25,11 +28,10 @@ public class bet extends Actor
             betSetter.setNewText("Current bet: " + bet);
         }                   
        if (Greenfoot.isKeyDown("enter") && bet >= 50 && bet <= userCash){
-           this.getWorld().removeObject(betSetter);
-           this.getWorld().removeObject(addBet);
-           this.getWorld().removeObject(subBet);
-           this.getWorld().removeObject(stopBet);
-           finalBet.setNewText("Bet: " + bet);
+           mainMenu MAIN = new mainMenu(); //creates a main menu object
+           Greenfoot.setWorld(MAIN); //sets the background to main menu
+           MAIN.startMenu(); // calls main menu start method
+           mainMenu.scoreKeeper.modifyCash(bet);
        }
     }    
 }

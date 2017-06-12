@@ -1,19 +1,16 @@
 import greenfoot.*;
 import java.util.ArrayList;
-
-
-public class blackJack extends World //just a placeholder until time is available to complete
+public class betScreen extends World //just a placeholder until time is available to complete
 {
     int userBalance = mainMenu.scoreKeeper.Startcash;//sets palyercash
     int dealerBalance = 400;//sets dealler balance
-    bet Better = new bet();
-    public blackJack()
+    static bet Better = new bet();
+    blankTextObject pressToBet = new  blankTextObject();
+    blankTextObject betInstructions = new blankTextObject();
+    public betScreen()
     {    
         super(900, 550, 1); //constructs 900 by 550 world
         addObject(mainMenu.scoreKeeper, 60, 20); //adds a scorecounter
-    }
-    public void startBJ(){//begins blackjack
-        startBet();
     }
     public void startBet(){
         addObject(Better.betSetter, 450, 200);

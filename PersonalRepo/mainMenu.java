@@ -5,6 +5,8 @@ public class mainMenu extends World
     public mainMenu()
     {
         super(900, 550, 1); //constructing a world of 900 by 550
+        addObject(betScreen.Better.betSetter, 800, 40);
+        betScreen.Better.betSetter.setNewText("Current bet: " + betScreen.Better.bet);
     }
     public void startMenu() {
         addObject(scoreKeeper, 60, 20); //adding a score keeping text

@@ -10,9 +10,9 @@ public class introScreen extends World
     public void act() {
          //initiates mouse object
         if(Greenfoot.mouseClicked(null)) { //checks whether or not mouse is clicked
-            mainMenu MAIN = new mainMenu(); //creates a main menu object
-            Greenfoot.setWorld(MAIN); //sets the background to main menu
-            MAIN.startMenu(); // calls main menu start method
+            betScreen BS = new betScreen(); //creates a main menu object
+            Greenfoot.setWorld(BS); //sets the background to main menu
+            BS.startBet(); // calls main menu start method
         }
     }
 }
