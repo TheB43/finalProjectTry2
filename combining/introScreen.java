@@ -1,10 +1,12 @@
 import greenfoot.*;
-public class IntroScreen extends World
+public class introScreen extends World
 {
-    public IntroScreen()
+    public void main(){
+        
+    }
+    public introScreen()
     {    
         super(900, 550, 1); 
-        getBackground().drawImage(new GreenfootImage("Casino-introscreen.png"), 0, 0);
         Greenfoot.start();
     }
     public void act() {
